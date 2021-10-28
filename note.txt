@@ -1,0 +1,24 @@
+- ref
+  - loading wasm in html
+    - https://ihsavru.medium.com/loading-webassembly-modules-in-javascript-dc09fbd5eac2
+
+  - passing in array
+    - https://becominghuman.ai/passing-and-returning-webassembly-array-parameters-a0f572c65d97
+    - https://medium.com/@tdeniffel/c-to-webassembly-pass-and-arrays-to-c-86e0cb0464f5
+
+- setup
+  - $ . emsdk_env.sh
+
+
+
+
+- autogeneated .js file has all the necessary code to load a wasm
+  - instantiateAsync
+    - fetch wasm
+      - WebAssembly.instantiateStreaming
+        - receiveInstantiationResult  
+          - 'result' object contains:   (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WebAssembly/instantiate)
+            - module     > WebAssembly.Module object
+            - instance   > WebAssembly.Instance object
+
+  - receiveInstance is where the module has finally loaded and 
