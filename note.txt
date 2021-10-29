@@ -22,3 +22,12 @@
             - instance   > WebAssembly.Instance object
 
   - receiveInstance is where the module has finally loaded and 
+
+
+
+  - _malloc, _free
+    - Needed to add -s EXPORTED_FUNCTIONS=['_malloc','_free'] when executing emcc to make these available on 'Module' object
+      (don't remember having to do this when compiling mss_compute.cpp, so no sure what the difference was)
+   
+  - getValue, setValue  (global)
+    - briefly I did not see those set on window, not sure what the condition was to cause this, seems ok now, though...
