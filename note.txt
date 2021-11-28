@@ -1,3 +1,6 @@
+- to try
+  - read from local file
+
 - ref
   - loading wasm in html
     - https://ihsavru.medium.com/loading-webassembly-modules-in-javascript-dc09fbd5eac2
@@ -8,7 +11,6 @@
 
 - setup
   - $ . emsdk_env.sh
-
 
 
 

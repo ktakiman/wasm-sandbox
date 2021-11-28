@@ -5,3 +5,5 @@
 /server/bin/*.wasm
 
 /test/mss.cpp
+
+/test/build*/

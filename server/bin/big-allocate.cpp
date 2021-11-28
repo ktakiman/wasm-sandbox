@@ -1,7 +1,11 @@
 #include <iostream>
 #include <numeric>
 
+#ifdef EMSCRIPTEN
 #include <emscripten/emscripten.h>
+#else
+#define EMSCRIPTEN_KEEPALIVE 
+#endif
 
 extern "C" {
 
