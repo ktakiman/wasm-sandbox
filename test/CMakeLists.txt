@@ -25,8 +25,15 @@ foreach(file IN LISTS files)
   message(${file})
   if(EMSCRIPTEN)
     add_executable(${file} ${cppfile})
-    set_target_properties(${file} PROPERTIES LINK_FLAGS 
-      "-g -s EXPORTED_RUNTIME_METHODS=ccall,cwrap -s EXPORTED_FUNCTIONS=@${CMAKE_SOURCE_DIR}/src/exported_functions.json")
+
+    target_compile_options(${file} PRIVATE "-g")
+
+    # https://stackoverflow.com/questions/60552844/how-do-i-migrate-from-compile-flags-to-target-compile-options-in-cmake
+    target_link_options(${file} PRIVATE 
+      "-g"
+      "SHELL:-s EXPORTED_RUNTIME_METHODS=ccall,cwrap"
+      "SHELL:-s EXPORTED_FUNCTIONS=@${CMAKE_SOURCE_DIR}/src/exported_functions.json"
+    )
   else()
     add_library(${file} ${cppfile})
   endif()
