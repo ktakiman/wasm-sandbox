@@ -1,9 +1,14 @@
 /emsdk
-/server/node_modules
+node_modules/
 /server/bin/*.html
 /server/bin/*.js
 /server/bin/*.wasm
+/server/bin/*.json
 
 /test/mss.cpp
 
 /test/build*/
+/test/temp
+
+/example/mandelbrot/build/
+/example/mandelbrot/temp/
