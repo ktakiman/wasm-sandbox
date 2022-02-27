@@ -5,11 +5,11 @@ ASSET_DIR=assets/
 # each .cpp file might need to use different compiler options so 
 # I'll just define a target for each case
 
-all: hello-html add-wasm pixel-buf-wasm
+all: hello add pixel-buf
 
 # ----------------------------------------------------------------------------- 
 # 01-hello  ~ just a main function which outputs to stdout
-hello-html: $(BUILD_DIR)01-hello.html
+hello: $(BUILD_DIR)01-hello.html
 
 $(BUILD_DIR)01-hello.html: $(SRC_DIR)01-hello.cpp
 	emcc $< -o $@ 
@@ -21,7 +21,7 @@ $(BUILD_DIR)01-hello-wasmonly.wasm: $(SRC_DIR)01-hello.cpp
 
 # ----------------------------------------------------------------------------- 
 # 02-add  ~ pure compute function only
-add-wasm: $(BUILD_DIR)02-add.wasm $(BUILD_DIR)02-add.html $(BUILD_DIR)02-add.js  
+add: $(BUILD_DIR)02-add.wasm $(BUILD_DIR)02-add.html $(BUILD_DIR)02-add.js  
 
 $(BUILD_DIR)02-add.wasm: $(SRC_DIR)02-add.cpp
 	emcc -O3 --no-entry $< -o $@
@@ -33,8 +33,8 @@ $(BUILD_DIR)02-add.js: $(ASSET_DIR)02-add.js
 	cp $< $@
 
 # ----------------------------------------------------------------------------- 
-# 03-pixel-buf ~ update canvas's pixel buffer within c++ function
-pixel-buf-wasm: $(BUILD_DIR)03-pixel-buf.wasm $(BUILD_DIR)03-pixel-buf.html $(BUILD_DIR)03-pixel-buf.js  
+# 03-pixel-buf ~ update canvas's pixel buffer within c++ function (shared memory usage)
+pixel-buf: $(BUILD_DIR)03-pixel-buf.wasm $(BUILD_DIR)03-pixel-buf.html $(BUILD_DIR)03-pixel-buf.js  
 
 $(BUILD_DIR)03-pixel-buf.wasm: $(SRC_DIR)03-pixel-buf.cpp
 	emcc -O0 -g --no-entry $< -o $@
@@ -46,8 +46,28 @@ $(BUILD_DIR)03-pixel-buf.js: $(ASSET_DIR)03-pixel-buf.js
 	cp $< $@
 
 # ----------------------------------------------------------------------------- 
-# 04-greet  ~ js calls into a cpp function which takes a const char* 
-greet-html: $(BUILD_DIR)04-greet.html
+# 04-strlen  ~ js calls into a cpp function which takes a const char* 
+strlen: $(BUILD_DIR)04-strlen.wasm $(BUILD_DIR)04-strlen.html $(BUILD_DIR)04-strlen.js  
 
-$(BUILD_DIR)04-greet.html: $(SRC_DIR)04-greet.cpp
-	emcc $< -o $@ -s EXPORTED_FUNCTIONS="['_greet']"
+$(BUILD_DIR)04-strlen.wasm: $(SRC_DIR)04-strlen.cpp
+	emcc $< -o $@ -s EXPORTED_FUNCTIONS=_malloc,_free -O0 -g --no-entry
+
+$(BUILD_DIR)04-strlen.html: $(ASSET_DIR)04-strlen.html
+	cp $< $@
+
+$(BUILD_DIR)04-strlen.js: $(ASSET_DIR)04-strlen.js
+	cp $< $@
+
+# ----------------------------------------------------------------------------- 
+# 05-malloc  ~ js calls into a cpp function which takes a const char* 
+strlen: $(BUILD_DIR)05-malloc.wasm $(BUILD_DIR)05-malloc.html $(BUILD_DIR)05-malloc.js  
+
+$(BUILD_DIR)05-malloc.wasm: $(SRC_DIR)05-malloc.cpp
+	emcc $< -o $@ -s EXPORTED_FUNCTIONS=_malloc,_free -O0 -g --no-entry
+
+$(BUILD_DIR)05-malloc.html: $(ASSET_DIR)05-malloc.html
+	cp $< $@
+
+$(BUILD_DIR)05-malloc.js: $(ASSET_DIR)05-malloc.js
+	cp $< $@
+
