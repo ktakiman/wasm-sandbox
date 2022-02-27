@@ -24,8 +24,9 @@ $(BUILD_DIR)01-hello-wasmonly.wasm: $(SRC_DIR)01-hello.cpp
 add: $(BUILD_DIR)02-add.wasm $(BUILD_DIR)02-add.html $(BUILD_DIR)02-add.js  
 
 $(BUILD_DIR)02-add.wasm: $(SRC_DIR)02-add.cpp
-	emcc -O3 --no-entry $< -o $@
+	emcc -g -O0 --no-entry $< -o $@
 
+# TODO: can I define this in more generic way, use wildcard maybe ??
 $(BUILD_DIR)02-add.html: $(ASSET_DIR)02-add.html
 	cp $< $@
 
@@ -50,7 +51,7 @@ $(BUILD_DIR)03-pixel-buf.js: $(ASSET_DIR)03-pixel-buf.js
 strlen: $(BUILD_DIR)04-strlen.wasm $(BUILD_DIR)04-strlen.html $(BUILD_DIR)04-strlen.js  
 
 $(BUILD_DIR)04-strlen.wasm: $(SRC_DIR)04-strlen.cpp
-	emcc $< -o $@ -O0 -g --no-entry
+	emcc -O0 -g --no-entry $< -o $@
 
 $(BUILD_DIR)04-strlen.html: $(ASSET_DIR)04-strlen.html
 	cp $< $@
