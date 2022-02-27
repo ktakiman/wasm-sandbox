@@ -50,7 +50,7 @@ $(BUILD_DIR)03-pixel-buf.js: $(ASSET_DIR)03-pixel-buf.js
 strlen: $(BUILD_DIR)04-strlen.wasm $(BUILD_DIR)04-strlen.html $(BUILD_DIR)04-strlen.js  
 
 $(BUILD_DIR)04-strlen.wasm: $(SRC_DIR)04-strlen.cpp
-	emcc $< -o $@ -s EXPORTED_FUNCTIONS=_malloc,_free -O0 -g --no-entry
+	emcc $< -o $@ -O0 -g --no-entry
 
 $(BUILD_DIR)04-strlen.html: $(ASSET_DIR)04-strlen.html
 	cp $< $@
@@ -60,7 +60,7 @@ $(BUILD_DIR)04-strlen.js: $(ASSET_DIR)04-strlen.js
 
 # ----------------------------------------------------------------------------- 
 # 05-malloc  ~ js calls into a cpp function which takes a const char* 
-strlen: $(BUILD_DIR)05-malloc.wasm $(BUILD_DIR)05-malloc.html $(BUILD_DIR)05-malloc.js  
+malloc: $(BUILD_DIR)05-malloc.wasm $(BUILD_DIR)05-malloc.html $(BUILD_DIR)05-malloc.js  
 
 $(BUILD_DIR)05-malloc.wasm: $(SRC_DIR)05-malloc.cpp
 	emcc $< -o $@ -s EXPORTED_FUNCTIONS=_malloc,_free -O0 -g --no-entry
