@@ -6,8 +6,6 @@ WebAssembly.instantiateStreaming(fetch('05-malloc.wasm'), importObject).then(obj
   const exports = obj.instance.exports;
   const { getAddr, allocMem, freeMem, malloc, free } = exports;
 
-  // directly write down to the memory exported from wasm
-  // not 100% sure if I can just get to use all of it freely...
   const buf = exports.memory.buffer;
   const addr = 0x0000;
   const mem_view = new Uint8Array(buf, addr, buf.byteLength);

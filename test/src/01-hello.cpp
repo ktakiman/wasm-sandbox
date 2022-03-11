@@ -1,4 +1,4 @@
-#include <iostream>
+#include <cstdio>
 
 
 // compiling this with simplest form of emcc
@@ -11,6 +11,6 @@
 
 int main() {
 
-  std::cout << "hello" << std::endl;
+  std::printf("hi\n");
   return 0;
 }

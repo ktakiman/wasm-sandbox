@@ -12,12 +12,12 @@ all: hello add pixel-buf
 hello: $(BUILD_DIR)01-hello.html
 
 $(BUILD_DIR)01-hello.html: $(SRC_DIR)01-hello.cpp
-	emcc $< -o $@ 
+	emcc -g -O0 $< -o $@ 
 
 hello-wasm: $(BUILD_DIR)01-hello-wasmonly.wasm
 
 $(BUILD_DIR)01-hello-wasmonly.wasm: $(SRC_DIR)01-hello.cpp
-	emcc $< -o $@ 
+	emcc -g -O0 $< -o $@ 
 
 # ----------------------------------------------------------------------------- 
 # 02-add  ~ pure compute function only
@@ -70,5 +70,18 @@ $(BUILD_DIR)05-malloc.html: $(ASSET_DIR)05-malloc.html
 	cp $< $@
 
 $(BUILD_DIR)05-malloc.js: $(ASSET_DIR)05-malloc.js
+	cp $< $@
+
+# ----------------------------------------------------------------------------- 
+# 06-console-log  ~ js calls into a cpp function which takes a const char* 
+console-log: $(BUILD_DIR)06-console-log.wasm $(BUILD_DIR)06-console-log.html $(BUILD_DIR)06-console-log.js
+
+$(BUILD_DIR)06-console-log.wasm: $(SRC_DIR)06-console-log.cpp
+	emcc $< -o $@ -s EXPORTED_FUNCTIONS=_malloc,_free -O0 -g --no-entry
+
+$(BUILD_DIR)06-console-log.html: $(ASSET_DIR)06-console-log.html
+	cp $< $@
+
+$(BUILD_DIR)06-console-log.js: $(ASSET_DIR)06-console-log.js
 	cp $< $@
 
