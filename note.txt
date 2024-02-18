@@ -12,8 +12,6 @@
 - setup
   - $ . emsdk_env.sh
 
-
-
 - autogeneated .js file has all the necessary code to load a wasm
   - instantiateAsync
     - fetch wasm

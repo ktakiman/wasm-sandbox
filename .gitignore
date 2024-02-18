@@ -1,6 +1,7 @@
 /emsdk
 
 /test/build
+/test/obj
 /test/compile_commands.json
 
 /Session.vim
